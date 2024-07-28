@@ -8,9 +8,14 @@ import static com.parse.Util.*;
 public class Context {
 
     public static class LanguageContext {
-
         List<Util.Lang> languages;
         String country;
+
+        public static Map<String, List<Util.Lang>> countryLanguages;
+
+        static {
+            countryLanguages = Map.of("germany", list(Util.Lang.DEU));
+        }
 
         public LanguageContext(String country, List<Util.Lang> languages) {
             this.country = country;
@@ -21,20 +26,12 @@ public class Context {
             return languages.contains(language) || languagesForCountry().contains(language);
         }
 
-        public static Map<String, List<Util.Lang>> countryLanguages;
-
-        static {
-            countryLanguages = Map.of("germany", list(Util.Lang.DEU));
-        }
-
         List<Util.Lang> languagesForCountry() {
             return safeNull(countryLanguages.get(country));
         }
-
     }
 
     public static class TimeContext {
-
         boolean timePm;
         boolean timeDoors;
 
