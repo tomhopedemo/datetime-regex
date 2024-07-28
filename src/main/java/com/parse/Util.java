@@ -117,10 +117,6 @@ public class Util {
         return (integer == null || integer.equals(0));
     }
 
-    public static <T> T last(List<T> collection) {
-        return collection.get(collection.size() - 1);
-    }
-
     public static <E> HashSet<E> set(E... objects) {
         HashSet<E> objectsSet = new HashSet<>();
         for (E object : objects) {
@@ -131,21 +127,6 @@ public class Util {
 
     public static boolean empty(NList collection) {
         return (collection == null || collection.size() == 0 || (collection.size() == 1 && collection.underlying.iterator().next() == null));
-    }
-
-    public static <T> void safeAdd(Collection<T> existing, Collection<T> newItems) {
-        if (existing == null || newItems == null) return;
-        existing.addAll(newItems);
-    }
-
-    public static Integer minDifferenceDirectional(List<Integer> collection, int value) {
-        if (empty(collection)) return null;
-        List<Integer> distancesBetween = list();
-        for (Integer element : collection) {
-            int difference = value - element;
-            if (difference >= 0) distancesBetween.add(difference);
-        }
-        return min(distancesBetween);
     }
 
     public static Integer min(Collection<Integer> collection) {
@@ -219,10 +200,6 @@ public class Util {
         nlist.underlying = list;
         nlist.splitDelimiter = delimiterRegex;
         return nlist;
-    }
-
-    public static <T> List<T> safeNull(List<T> a) {
-        return empty(a) ? new ArrayList<T>() : a;
     }
 
     public static <T> T get(List<T> list, int index) {
@@ -321,21 +298,6 @@ public class Util {
             return underlying.get(index);
         }
 
-        public String reconstruct(List<String> list, String joiner) {
-            if (list == null) return null;
-            if (joiner == null) joiner = splitDelimiter;
-            if (joiner.equals("\\s+")) {
-                return string(list, " ");
-            } else if (joiner.equals("\\(")) {
-                return string(list, "(");
-            } else {
-                return string(list, joiner);
-            }
-        }
-
-        public void set(int index, String string) {
-            underlying.set(index, string);
-        }
 
         public int size() {
             if (underlying == null) return 0;
